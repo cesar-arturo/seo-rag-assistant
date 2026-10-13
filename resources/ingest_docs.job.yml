@@ -1,0 +1,22 @@
+resources:
+  jobs:
+    ingest_docs:
+      name: ingest_docs
+      description: Crawl Google Search Central documentation into docs_bronze.
+      tasks:
+        - task_key: crawl_docs_bronze
+          environment_key: default
+          python_wheel_task:
+            package_name: seo_rag
+            entry_point: ingest-docs
+            parameters:
+              - --catalog
+              - ${var.catalog}
+              - --schema
+              - ${var.schema}
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "4"
+            dependencies:
+              - ../dist/*.whl
