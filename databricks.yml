@@ -1,0 +1,25 @@
+bundle:
+  name: seo-rag-assistant
+
+artifacts:
+  seo_rag:
+    type: whl
+    build: uv build --wheel
+    path: .
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: Unity Catalog catalog for project tables and volumes
+    default: workspace
+  schema:
+    description: Schema for project tables and volumes
+    default: seo_rag
+
+targets:
+  dev:
+    mode: development
+    default: true
+    # Workspace host comes from your CLI profile (DATABRICKS_CONFIG_PROFILE or --profile).
